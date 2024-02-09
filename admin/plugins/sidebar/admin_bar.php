@@ -33,7 +33,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Room Management
+        Management
     </div>
 
     <!-- Nav Item - Rooms -->
@@ -45,6 +45,17 @@
         <a class="nav-link" href="rooms.php">
             <i class="fas fa-fw fa-home"></i>
             <span>Rooms</span></a>
+    </li>
+
+    <!-- Nav Item - Tenants -->
+    <?php if ($_SERVER['REQUEST_URI'] == "/harrs/admin/tenants.php") {?>
+    <li class="nav-item active">
+    <?php } else {?>
+    <li class="nav-item">
+    <?php } ?>
+        <a class="nav-link" href="tenants.php">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Tenants</span></a>
     </li>
 
     <!-- Divider -->

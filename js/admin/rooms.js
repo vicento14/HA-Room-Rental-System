@@ -358,6 +358,9 @@ const delete_room = () => {
                     icon: "info",
                     timer: 1000,
                 });
+                $('#room_type_update').val('');
+                $('#room_rent_update').val('');
+                $('#room_description_update').val('');
                 search_rooms(1);
                 $('#update_room').modal('hide');
             } else {
