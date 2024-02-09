@@ -1,0 +1,39 @@
+--------------------------------------------------
+HARRS - H.A. ROOM RENTAL SYSTEM
+Developer: Vince Dale D. Alcantara
+--------------------------------------------------
+
+Objectives:
+
+() undone, (*) done
+
+Interfaces
+
+(*) Sign-in
+(*) Dashboard
+() Account Management
+() Rooms
+() Tenants
+() Transactions
+() Notifications
+
+Functions
+
+(*) Sign-in / Sign-out
+() CRUD Account
+() CRUD Rooms
+() CRUD Tenants
+() Add new transactions
+() Load transactions
+() Export transactions to CSV
+() Print single transaction
+
+Dashboard Functions
+
+() Count All Rooms
+() Count All Tenants
+() Count All Transactions
+() Count All Active Tenants
+() Count All Available Rooms
+() Count All Occupied Rooms
+() Count All Pending Transactions
