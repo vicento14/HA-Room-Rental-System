@@ -188,6 +188,10 @@ const delete_account = () => {
                     icon: "info",
                     timer: 1000,
                 });
+                $('#name_update').val('');
+                $('#username_update').val('');
+                $('#password_update').val('');
+                $('#role_update').val('');
                 load_accounts();
                 $('#update_account').modal('hide');
             } else {

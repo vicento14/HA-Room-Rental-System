@@ -24,6 +24,8 @@
     <script defer src="../js/admin/accounts.js"></script>
     <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/rooms.php") {?>
     <script defer src="../js/admin/rooms.js"></script>
+    <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/tenants.php") {?>
+    <script defer src="../js/admin/tenants.js"></script>
     <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/tables.php") {?>
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>

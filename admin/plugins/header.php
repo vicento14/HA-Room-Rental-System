@@ -24,6 +24,8 @@ if (!isset($_SESSION['username'])) {
     <title>HARRS - Accounts</title>
     <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/rooms.php") {?>
     <title>HARRS - Rooms</title>
+    <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/tenants.php") {?>
+    <title>HARRS - Tenants</title>
     <?php } else if ($_SERVER['REQUEST_URI'] == "/harrs/admin/tables.php") {?>
     <title>HARRS - Tables</title>
     <?php } ?>

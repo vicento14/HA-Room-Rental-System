@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_set_cookie_params(0, "/harrs");
 session_name("harrs");
 session_start();
@@ -7,7 +7,8 @@ include '../../conn.php';
 
 $method = $_POST['method'];
 
-function count_rooms($search_arr, $conn) {
+function count_rooms($search_arr, $conn)
+{
 	$query = "SELECT count(ID) AS total FROM rooms WHERE 1=1";
 	$params = array();
 
@@ -16,7 +17,7 @@ function count_rooms($search_arr, $conn) {
 		$params[':room_id'] = "%" . $search_arr['room_id'] . "%";
 	}
 	if (!empty($search_arr['room_type'])) {
-		$query .= " AND RoomType LIKE '".$search_arr['room_type']."%'";
+		$query .= " AND RoomType LIKE '" . $search_arr['room_type'] . "%'";
 		$params[':room_type'] = $search_arr['room_type'] . "%";
 	}
 	if (!empty($search_arr['room_rent'])) {
@@ -24,15 +25,15 @@ function count_rooms($search_arr, $conn) {
 		$params[':room_rent'] = $search_arr['room_rent'] . "%";
 	}
 	$stmt = $conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-	foreach($params as $param => $value){
-        $stmt->bindValue($param, $value);
-    }
+	foreach ($params as $param => $value) {
+		$stmt->bindValue($param, $value);
+	}
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
-		foreach($stmt->fetchALL() as $row){
+		foreach ($stmt->fetchALL() as $row) {
 			$total = $row['total'];
 		}
-	}else{
+	} else {
 		$total = 0;
 	}
 	return $total;
@@ -85,7 +86,7 @@ if ($method == 'search_rooms') {
 	$results_per_page = 10;
 
 	//determine the sql LIMIT starting number for the results on the displaying page
-	$page_first_result = ($current_page-1) * $results_per_page;
+	$page_first_result = ($current_page - 1) * $results_per_page;
 
 	$c = $page_first_result;
 
@@ -94,7 +95,7 @@ if ($method == 'search_rooms') {
 
 	if (!empty($room_id)) {
 		$query .= " AND RoomID LIKE :room_id";
-		$params[':room_id'] = "%". $room_id . "%";
+		$params[':room_id'] = "%" . $room_id . "%";
 	}
 	if (!empty($room_type)) {
 		$query .= " AND RoomType LIKE :room_type";
@@ -105,27 +106,35 @@ if ($method == 'search_rooms') {
 		$params[':room_rent'] = $room_rent . "%";
 	}
 
-	$query .= " LIMIT ".$page_first_result.", ".$results_per_page;
+	$query .= " LIMIT " . $page_first_result . ", " . $results_per_page;
 
 	$stmt = $conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-	foreach($params as $param => $value){
-        $stmt->bindValue($param, $value);
-    }
+	foreach ($params as $param => $value) {
+		$stmt->bindValue($param, $value);
+	}
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
-		foreach($stmt->fetchALL() as $row){
+		foreach ($stmt->fetchALL() as $row) {
 			$c++;
-			echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_room" data-id="'.$row['ID'].'" data-room_id="'.$row['RoomID'].'" data-room_type="'.$row['RoomType'].'" data-room_rent="'.$row['RoomRent'].'" data-room_description="'.$row['RoomDescription'].'" data-occupied="'.$row['Occupied'].'" onclick="get_rooms_details(this)">';
-				echo '<td>'.$c.'</td>';
-				echo '<td>'.$row['RoomID'].'</td>';
-				echo '<td>'.$row['RoomType'].'</td>';
-				echo '<td>'.$row['RoomRent'].'</td>';
-				echo '<td>'.$row['DateUpdated'].'</td>';
+			echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_room"';
+			echo ' data-id="' . $row['ID'];
+			echo '" data-room_id="' . $row['RoomID'];
+			echo '" data-room_type="' . $row['RoomType'];
+			echo '" data-room_rent="' . $row['RoomRent'];
+			echo '" data-room_description="' . $row['RoomDescription'];
+			echo '" data-occupied="' . $row['Occupied'];
+			echo '" onclick="get_rooms_details(this)">';
+
+			echo '<td>' . $c . '</td>';
+			echo '<td>' . $row['RoomID'] . '</td>';
+			echo '<td>' . $row['RoomType'] . '</td>';
+			echo '<td>' . $row['RoomRent'] . '</td>';
+			echo '<td>' . $row['DateUpdated'] . '</td>';
 			echo '</tr>';
 		}
-	}else{
+	} else {
 		echo '<tr>';
-			echo '<td colspan="5" style="text-align:center; color:red;">No Result !!!</td>';
+		echo '<td colspan="5" style="text-align:center; color:red;">No Result !!!</td>';
 		echo '</tr>';
 	}
 }
@@ -141,7 +150,7 @@ if ($method == 'add_room') {
 	$stmt = $conn->prepare($check);
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
-		foreach($stmt->fetchALL() as $row){
+		foreach ($stmt->fetchALL() as $row) {
 			$recent_room_id = $row['RoomID'];
 		}
 
@@ -160,7 +169,7 @@ if ($method == 'add_room') {
 	$params = array($room_id, $room_type, $room_description, $room_rent);
 	if ($stmt->execute($params)) {
 		echo 'success';
-	}else{
+	} else {
 		echo 'error';
 	}
 }
@@ -176,7 +185,7 @@ if ($method == 'update_room') {
 	$params = array($room_type, $room_description, $room_rent, $id);
 	if ($stmt->execute($params)) {
 		echo 'success';
-	}else{
+	} else {
 		echo 'error';
 	}
 }
@@ -189,7 +198,7 @@ if ($method == 'delete_room') {
 	$params = array($id);
 	if ($stmt->execute($params)) {
 		echo 'success';
-	}else{
+	} else {
 		echo 'error';
 	}
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2024 at 09:53 AM
+-- Generation Time: Feb 09, 2024 at 04:05 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -77,12 +77,12 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`ID`, `RoomID`, `RoomType`, `RoomDescription`, `RoomRent`, `Occupied`, `DateUpdated`) VALUES
-(1, 'Room-001', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:01'),
-(2, 'Room-002', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:30'),
-(3, 'Room-003', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:38'),
-(4, 'Room-004', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:45'),
-(5, 'Room-005', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:51'),
-(6, 'Room-006', 'Small', 'With Kitchen and Cr', '2600.00', 0, '2022-10-26 22:03:58'),
+(1, 'Room-001', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:28:31'),
+(2, 'Room-002', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:07:11'),
+(3, 'Room-003', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:07:16'),
+(4, 'Room-004', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:07:20'),
+(5, 'Room-005', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:07:26'),
+(6, 'Room-006', 'Small', 'With Kitchen and Cr', '2700.00', 0, '2024-02-09 18:07:31'),
 (7, 'Room-007', 'Medium', 'With Kitchen and Cr', '3000.00', 0, '2022-10-26 22:04:05');
 
 -- --------------------------------------------------------
@@ -99,13 +99,20 @@ CREATE TABLE `tenants` (
   `MiddleName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Address` varchar(625) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ContactNumber` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Work` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Occupation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `WorkAddress` varchar(625) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `NumOfTenants` tinyint(4) NOT NULL DEFAULT 1,
   `Active` tinyint(1) NOT NULL DEFAULT 0,
-  `DateRecorded` datetime DEFAULT NULL,
   `DateUpdated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tenants`
+--
+
+INSERT INTO `tenants` (`ID`, `TenantID`, `LastName`, `FirstName`, `MiddleName`, `Address`, `ContactNumber`, `Occupation`, `Company`, `WorkAddress`, `NumOfTenants`, `Active`, `DateUpdated`) VALUES
+(1, 'T00000001', 'TestLastName1', 'TestFirstName1', 'TestMiddleName1', 'TestAddress', '09123456789', 'TestOccupation', 'TestCompany', 'TestWorkAddress', 1, 0, '2024-02-09 23:02:22');
 
 -- --------------------------------------------------------
 
@@ -186,7 +193,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `tenants`
 --
 ALTER TABLE `tenants`
-  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transactions`

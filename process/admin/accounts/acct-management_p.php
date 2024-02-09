@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_set_cookie_params(0, "/harrs");
 session_name("harrs");
 session_start();
@@ -17,7 +17,7 @@ if ($method == 'load_accounts') {
 	$stmt = $conn->prepare($query);
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
-		foreach($stmt->fetchALL() as $row){
+		foreach ($stmt->fetchALL() as $row) {
 			$c++;
 
 			if ($_SESSION['username'] == $row['Username'] && $_SESSION['name'] == $row['Name'] && $_SESSION['role'] == $row['Role']) {
@@ -26,16 +26,22 @@ if ($method == 'load_accounts') {
 				$row_class = $row_class_arr[0];
 			}
 
-			echo '<tr style="cursor:pointer;" class="'.$row_class.'" data-toggle="modal" data-target="#update_account" data-id="'.$row['ID'].'" data-username="'.$row['Username'].'" data-name="'.$row['Name'].'" data-role="'.$row['Role'].'" onclick="get_accounts_details(this)">';
-				echo '<td>'.$c.'</td>';
-				echo '<td>'.htmlspecialchars($row['Name']).'</td>';
-				echo '<td>'.strtoupper($row['Role']).'</td>';
-				echo '<td>'.date('Y-m-d h:i A', strtotime($row['DateUpdated'])).'</td>';
+			echo '<tr style="cursor:pointer;" class="' . $row_class . '" data-toggle="modal" data-target="#update_account"';
+			echo ' data-id="' . $row['ID'];
+			echo '" data-username="' . $row['Username'];
+			echo '" data-name="' . $row['Name']; 
+			echo '" data-role="' . $row['Role'];
+			echo '" onclick="get_accounts_details(this)">';
+
+			echo '<td>' . $c . '</td>';
+			echo '<td>' . htmlspecialchars($row['Name']) . '</td>';
+			echo '<td>' . strtoupper($row['Role']) . '</td>';
+			echo '<td>' . date('Y-m-d h:i A', strtotime($row['DateUpdated'])) . '</td>';
 			echo '</tr>';
 		}
-	}else{
+	} else {
 		echo '<tr>';
-			echo '<td colspan="4" style="text-align:center; color:red;">No Result !!!</td>';
+		echo '<td colspan="4" style="text-align:center; color:red;">No Result !!!</td>';
 		echo '</tr>';
 	}
 }
@@ -67,12 +73,12 @@ if ($method == 'search_accounts') {
 	}
 
 	$stmt = $conn->prepare($query);
-	foreach($params as $param => $value){
-        $stmt->bindValue($param, $value);
-    }
+	foreach ($params as $param => $value) {
+		$stmt->bindValue($param, $value);
+	}
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
-		foreach($stmt->fetchALL() as $row){
+		foreach ($stmt->fetchALL() as $row) {
 			$c++;
 
 			if ($_SESSION['username'] == $row['Username'] && $_SESSION['name'] == $row['Name'] && $_SESSION['role'] == $row['Role']) {
@@ -81,16 +87,22 @@ if ($method == 'search_accounts') {
 				$row_class = $row_class_arr[0];
 			}
 
-			echo '<tr style="cursor:pointer;" class="'.$row_class.'" data-toggle="modal" data-target="#update_account" data-id="'.$row['ID'].'" data-username="'.$row['Username'].'" data-name="'.$row['Name'].'" data-role="'.$row['Role'].'" onclick="get_accounts_details(this)">';
-				echo '<td>'.$c.'</td>';
-				echo '<td>'.htmlspecialchars($row['Name']).'</td>';
-				echo '<td>'.strtoupper($row['Role']).'</td>';
-				echo '<td>'.date('Y-m-d h:i A', strtotime($row['DateUpdated'])).'</td>';
+			echo '<tr style="cursor:pointer;" class="' . $row_class . '" data-toggle="modal" data-target="#update_account"';
+			echo ' data-id="' . $row['ID'];
+			echo '" data-username="' . $row['Username'];
+			echo '" data-name="' . $row['Name'];
+			echo '" data-role="' . $row['Role'];
+			echo '" onclick="get_accounts_details(this)">';
+			
+			echo '<td>' . $c . '</td>';
+			echo '<td>' . htmlspecialchars($row['Name']) . '</td>';
+			echo '<td>' . strtoupper($row['Role']) . '</td>';
+			echo '<td>' . date('Y-m-d h:i A', strtotime($row['DateUpdated'])) . '</td>';
 			echo '</tr>';
 		}
-	}else{
+	} else {
 		echo '<tr>';
-			echo '<td colspan="4" style="text-align:center; color:red;">No Result !!!</td>';
+		echo '<td colspan="4" style="text-align:center; color:red;">No Result !!!</td>';
 		echo '</tr>';
 	}
 }
@@ -107,14 +119,14 @@ if ($method == 'add_account') {
 	$stmt->execute($params);
 	if ($stmt->rowCount() > 0) {
 		echo 'Already Exist';
-	}else{
+	} else {
 		$stmt = NULL;
 		$query = "INSERT INTO accounts (`Name`, `Username`, `Password`, `Role`) VALUES (?,?,?,?)";
 		$stmt = $conn->prepare($query);
 		$params = array($name, $username, $password, $role);
 		if ($stmt->execute($params)) {
 			echo 'success';
-		}else{
+		} else {
 			echo 'error';
 		}
 	}
@@ -143,30 +155,30 @@ if ($method == 'update_account') {
 	}
 
 	$stmt = NULL;
-    $query = "UPDATE accounts SET Name = :name";
-    $params = array(':name' => $name);
+	$query = "UPDATE accounts SET Name = :name";
+	$params = array(':name' => $name);
 
-    if ($update_username == true) {
-        $query .= ", Username = :username";
-        $params[':username'] = $username;
-    }
-    if ($update_password == true) {
-        $query .= ", Password = :password";
-        $params[':password'] = $password;
-    }
-    $query .= ", Role = :role WHERE ID = :id";
-    $params[':role'] = $role;
-    $params[':id'] = $id;
+	if ($update_username == true) {
+		$query .= ", Username = :username";
+		$params[':username'] = $username;
+	}
+	if ($update_password == true) {
+		$query .= ", Password = :password";
+		$params[':password'] = $password;
+	}
+	$query .= ", Role = :role WHERE ID = :id";
+	$params[':role'] = $role;
+	$params[':id'] = $id;
 
-    $stmt = $conn->prepare($query);
-    foreach($params as $param => $value){
-        $stmt->bindValue($param, $value);
-    }
-    if ($stmt->execute()) {
-        echo 'success';
-    } else {
-        echo 'error';
-    }
+	$stmt = $conn->prepare($query);
+	foreach ($params as $param => $value) {
+		$stmt->bindValue($param, $value);
+	}
+	if ($stmt->execute()) {
+		echo 'success';
+	} else {
+		echo 'error';
+	}
 }
 
 if ($method == 'delete_account') {
@@ -177,7 +189,7 @@ if ($method == 'delete_account') {
 	$params = array($id);
 	if ($stmt->execute($params)) {
 		echo 'success';
-	}else{
+	} else {
 		echo 'error';
 	}
 }
