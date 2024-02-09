@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-6">
                             <label>Room Rent:</label><label style="color: red;">*</label>
-                            <input type="text" id="room_rent_update" class="form-control" maxlength="10" autocomplete="off" required>
+                            <input type="number" id="room_rent_update" class="form-control" step="0.01" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row">

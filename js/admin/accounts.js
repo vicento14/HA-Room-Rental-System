@@ -77,7 +77,12 @@ const add_account = () => {
             role: role
         }, success: function (response) {
             if (response == 'success') {
-                swal('Accounts', `Successfully Added`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Added`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 $('#name').val('');
                 $('#username').val('');
                 $('#password').val('');
@@ -145,7 +150,12 @@ const update_account = () => {
             role: role
         }, success: function (response) {
             if (response == 'success') {
-                swal('Accounts', `Successfully Updated`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Updated`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 $('#name_update').val('');
                 $('#username_update').val('');
                 $('#password_update').val('');
@@ -172,7 +182,12 @@ const delete_account = () => {
             id: id
         }, success: function (response) {
             if (response == 'success') {
-                swal('Accounts', `Successfully Deleted`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Deleted`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 load_accounts();
                 $('#update_account').modal('hide');
             } else {

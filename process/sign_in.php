@@ -8,12 +8,11 @@ require('conn.php');
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-/*$query = "SELECT Username, Name, Role FROM Accounts WHERE Username = BINARY convert(:username using utf8mb4) collate utf8mb4_bin AND Password = BINARY convert(:password using utf8mb4) collate utf8mb4_bin";*/
-$query = "CALL `SignIn`(:username, :password)";
+/*$query = "SELECT Username, Name, Role FROM Accounts WHERE Username = BINARY convert(? using utf8mb4) collate utf8mb4_bin AND Password = BINARY convert(? using utf8mb4) collate utf8mb4_bin";*/
+$query = "CALL `SignIn`(?, ?)";
 $stmt = $conn -> prepare($query);
-$stmt->bindParam(':username', $username);
-$stmt->bindParam(':password', $password);
-if ($stmt -> execute()) {
+$params = array($username, $password);
+if ($stmt -> execute($params)) {
 	if ($stmt -> rowCount() > 0) {
 		while($row = $stmt -> fetch(PDO::FETCH_ASSOC)) {
 			$_SESSION['username'] = $row['Username'];
