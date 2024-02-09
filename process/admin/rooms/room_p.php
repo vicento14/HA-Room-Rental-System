@@ -10,7 +10,7 @@ $method = $_POST['method'];
 function count_rooms($search_arr, $conn) {
 	$query = "SELECT count(ID) AS total FROM rooms WHERE 1=1";
 	if (!empty($search_arr['room_id'])) {
-		$query .= " AND RoomID LIKE '".$search_arr['room_id']."%'";
+		$query .= " AND RoomID LIKE '%".$search_arr['room_id']."%'";
 	}
 	if (!empty($search_arr['room_type'])) {
 		$query .= " AND RoomType LIKE '".$search_arr['room_type']."%'";
@@ -84,7 +84,7 @@ if ($method == 'search_rooms') {
 	$query = "SELECT * FROM rooms WHERE 1=1";
 
 	if (!empty($room_id)) {
-		$query .= " AND RoomID LIKE '".$room_id."%'";
+		$query .= " AND RoomID LIKE '%".$room_id."%'";
 	}
 	if (!empty($room_type)) {
 		$query .= " AND RoomType LIKE '".$room_type."%'";
@@ -100,7 +100,7 @@ if ($method == 'search_rooms') {
 	if ($stmt->rowCount() > 0) {
 		foreach($stmt->fetchALL() as $row){
 			$c++;
-			echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_room" data-id="'.$row['ID'].'" data-room_id="'.$row['RoomID'].'" data-room_type="'.$row['RoomType'].'" data-room_rent="'.$row['RoomRent'].'" data-occupied="'.$row['Occupied'].'" onclick="get_rooms_details(this)">';
+			echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_room" data-id="'.$row['ID'].'" data-room_id="'.$row['RoomID'].'" data-room_type="'.$row['RoomType'].'" data-room_rent="'.$row['RoomRent'].'" data-room_description="'.$row['RoomDescription'].'" data-occupied="'.$row['Occupied'].'" onclick="get_rooms_details(this)">';
 				echo '<td>'.$c.'</td>';
 				echo '<td>'.$row['RoomID'].'</td>';
 				echo '<td>'.$row['RoomType'].'</td>';

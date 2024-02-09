@@ -11,8 +11,8 @@ Interfaces
 
 (*) Sign-in
 (*) Dashboard
-() Account Management
-() Rooms
+(*) Account Management
+(*) Rooms
 () Tenants
 () Transactions
 () Notifications
