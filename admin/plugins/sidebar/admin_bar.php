@@ -17,7 +17,7 @@
             <span>Dashboard</span></a>
     </li>
 
-    <!-- Nav Item - Dashboard -->
+    <!-- Nav Item - Accounts -->
     <?php if ($_SERVER['REQUEST_URI'] == "/harrs/admin/accounts.php") {?>
     <li class="nav-item active">
     <?php } else {?>
@@ -26,6 +26,25 @@
         <a class="nav-link" href="accounts.php">
             <i class="fas fa-fw fa-user-cog"></i>
             <span>Accounts</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Room Management
+    </div>
+
+    <!-- Nav Item - Rooms -->
+    <?php if ($_SERVER['REQUEST_URI'] == "/harrs/admin/rooms.php") {?>
+    <li class="nav-item active">
+    <?php } else {?>
+    <li class="nav-item">
+    <?php } ?>
+        <a class="nav-link" href="rooms.php">
+            <i class="fas fa-fw fa-home"></i>
+            <span>Rooms</span></a>
     </li>
 
     <!-- Divider -->
