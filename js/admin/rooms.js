@@ -226,7 +226,12 @@ const add_room = () => {
             room_description: room_description
         }, success: function (response) {
             if (response == 'success') {
-                swal('Rooms', `Successfully Added`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Added`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 $('#room_type').val('');
                 $('#room_rent').val('');
                 $('#room_description').val('');
@@ -318,7 +323,12 @@ const update_room = () => {
             room_description: room_description
         }, success: function (response) {
             if (response == 'success') {
-                swal('Rooms', `Successfully Updated`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Updated`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 $('#room_type_update').val('');
                 $('#room_rent_update').val('');
                 $('#room_description_update').val('');
@@ -342,7 +352,12 @@ const delete_room = () => {
             id: id
         }, success: function (response) {
             if (response == 'success') {
-                swal('Rooms', `Successfully Deleted`, 'info');
+                swal({
+                    title: "Rooms",
+                    text: `Successfully Deleted`,
+                    icon: "info",
+                    timer: 1000,
+                });
                 search_rooms(1);
                 $('#update_room').modal('hide');
             } else {

@@ -9,16 +9,24 @@ $method = $_POST['method'];
 
 function count_rooms($search_arr, $conn) {
 	$query = "SELECT count(ID) AS total FROM rooms WHERE 1=1";
+	$params = array();
+
 	if (!empty($search_arr['room_id'])) {
-		$query .= " AND RoomID LIKE '%".$search_arr['room_id']."%'";
+		$query .= " AND RoomID LIKE :room_id";
+		$params[':room_id'] = "%" . $search_arr['room_id'] . "%";
 	}
 	if (!empty($search_arr['room_type'])) {
 		$query .= " AND RoomType LIKE '".$search_arr['room_type']."%'";
+		$params[':room_type'] = $search_arr['room_type'] . "%";
 	}
 	if (!empty($search_arr['room_rent'])) {
-		$query .= " AND RoomRent LIKE '".$search_arr['room_rent']."%'";
+		$query .= " AND RoomRent LIKE :room_rent";
+		$params[':room_rent'] = $search_arr['room_rent'] . "%";
 	}
 	$stmt = $conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+	foreach($params as $param => $value){
+        $stmt->bindValue($param, $value);
+    }
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
 		foreach($stmt->fetchALL() as $row){
@@ -82,20 +90,27 @@ if ($method == 'search_rooms') {
 	$c = $page_first_result;
 
 	$query = "SELECT * FROM rooms WHERE 1=1";
+	$params = array();
 
 	if (!empty($room_id)) {
-		$query .= " AND RoomID LIKE '%".$room_id."%'";
+		$query .= " AND RoomID LIKE :room_id";
+		$params[':room_id'] = "%". $room_id . "%";
 	}
 	if (!empty($room_type)) {
-		$query .= " AND RoomType LIKE '".$room_type."%'";
+		$query .= " AND RoomType LIKE :room_type";
+		$params[':room_type'] = $room_type . "%";
 	}
 	if (!empty($room_rent)) {
-		$query .= " AND RoomRent LIKE '".$room_rent."%'";
+		$query .= " AND RoomRent LIKE :room_rent";
+		$params[':room_rent'] = $room_rent . "%";
 	}
 
 	$query .= " LIMIT ".$page_first_result.", ".$results_per_page;
 
 	$stmt = $conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+	foreach($params as $param => $value){
+        $stmt->bindValue($param, $value);
+    }
 	$stmt->execute();
 	if ($stmt->rowCount() > 0) {
 		foreach($stmt->fetchALL() as $row){
@@ -140,9 +155,10 @@ if ($method == 'add_room') {
 	}
 
 	$stmt = NULL;
-	$query = "INSERT INTO rooms (`RoomID`, `RoomType`, `RoomDescription`, `RoomRent`) VALUES ('$room_id','$room_type','$room_description','$room_rent')";
+	$query = "INSERT INTO rooms (`RoomID`, `RoomType`, `RoomDescription`, `RoomRent`) VALUES (?,?,?,?)";
 	$stmt = $conn->prepare($query);
-	if ($stmt->execute()) {
+	$params = array($room_id, $room_type, $room_description, $room_rent);
+	if ($stmt->execute($params)) {
 		echo 'success';
 	}else{
 		echo 'error';
@@ -155,9 +171,10 @@ if ($method == 'update_room') {
 	$room_description = trim($_POST['room_description']);
 	$room_rent = trim($_POST['room_rent']);
 
-	$query = "UPDATE rooms SET RoomType = '$room_type', RoomDescription = '$room_description', RoomRent = '$room_rent' WHERE ID = '$id'";
+	$query = "UPDATE rooms SET RoomType = ?, RoomDescription = ?, RoomRent = ? WHERE ID = ?";
 	$stmt = $conn->prepare($query);
-	if ($stmt->execute()) {
+	$params = array($room_type, $room_description, $room_rent, $id);
+	if ($stmt->execute($params)) {
 		echo 'success';
 	}else{
 		echo 'error';
@@ -167,9 +184,10 @@ if ($method == 'update_room') {
 if ($method == 'delete_room') {
 	$id = $_POST['id'];
 
-	$query = "DELETE FROM rooms WHERE ID = '$id'";
+	$query = "DELETE FROM rooms WHERE ID = ?";
 	$stmt = $conn->prepare($query);
-	if ($stmt->execute()) {
+	$params = array($id);
+	if ($stmt->execute($params)) {
 		echo 'success';
 	}else{
 		echo 'error';
