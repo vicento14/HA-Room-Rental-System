@@ -96,7 +96,14 @@ if (isset($_SESSION['username'])) {
     <script defer src="js/sb-admin-2.min.js"></script>
 
     <!-- HARRS Script -->
-    <script defer src="js/sign-in.js"></script>
+    <script defer src="js/src/sign-in.js"></script>
+
+    <noscript>
+        <br>
+        <span>We are facing <strong>Script</strong> issues. Kindly enable <strong>JavaScript</strong>!!!</span>
+        <br>
+        <span>Call IT Personnel Immediately!!! They will fix it right away.</span>
+    </noscript>
 
 </body>
 

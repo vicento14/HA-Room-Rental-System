@@ -25,7 +25,7 @@ const load_accounts = () => {
             method: 'load_accounts'
         },
         success: function (response) {
-            $('#accounts_data').html(response);
+            document.getElementById("accounts_data").innerHTML = response;
         }
     });
 }
@@ -46,10 +46,10 @@ const search_accounts = () => {
         },
         beforeSend: () => {
             var loading = `<tr><td colspan="4" style="text-align:center;"><div class="spinner-border text-dark" role="status"><span class="sr-only">Loading...</span></div></td></tr>`;
-            $('#accounts_data').html(loading);
+            document.getElementById("accounts_data").innerHTML = loading;
         },
         success: function (response) {
-            $('#accounts_data').html(response);
+            document.getElementById("accounts_data").innerHTML = response;
         }
     });
 }
@@ -78,15 +78,15 @@ const add_account = () => {
         }, success: function (response) {
             if (response == 'success') {
                 swal({
-                    title: "Rooms",
+                    title: "Accounts",
                     text: `Successfully Added`,
                     icon: "info",
                     timer: 1000,
                 });
-                $('#name').val('');
-                $('#username').val('');
-                $('#password').val('');
-                $('#role').val('');
+                document.getElementById("name").value = '';
+                document.getElementById("username").value = '';
+                document.getElementById("password").value = '';
+                document.getElementById("role").value = '';
                 load_accounts();
                 $('#new_account').modal('hide');
             } else if (response == 'Already Exist') {
@@ -151,15 +151,15 @@ const update_account = () => {
         }, success: function (response) {
             if (response == 'success') {
                 swal({
-                    title: "Rooms",
+                    title: "Accounts",
                     text: `Successfully Updated`,
                     icon: "info",
                     timer: 1000,
                 });
-                $('#name_update').val('');
-                $('#username_update').val('');
-                $('#password_update').val('');
-                $('#role_update').val('');
+                document.getElementById("name_update").value = '';
+                document.getElementById("username_update").value = '';
+                document.getElementById("password_update").value = '';
+                document.getElementById("role_update").value = '';
                 load_accounts();
                 $('#update_account').modal('hide');
             } else if (response == 'duplicate') {
@@ -183,15 +183,15 @@ const delete_account = () => {
         }, success: function (response) {
             if (response == 'success') {
                 swal({
-                    title: "Rooms",
+                    title: "Accounts",
                     text: `Successfully Deleted`,
                     icon: "info",
                     timer: 1000,
                 });
-                $('#name_update').val('');
-                $('#username_update').val('');
-                $('#password_update').val('');
-                $('#role_update').val('');
+                document.getElementById("name_update").value = '';
+                document.getElementById("username_update").value = '';
+                document.getElementById("password_update").value = '';
+                document.getElementById("role_update").value = '';
                 load_accounts();
                 $('#update_account').modal('hide');
             } else {

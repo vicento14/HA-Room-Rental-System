@@ -12,11 +12,11 @@
                 <div class="modal-body">
                     <input type="hidden" id="id_tenant_update" class="form-control">
                     <div class="row mb-2">
-                        <div class="col-6">
+                        <div class="col-8">
                             <label>Tenant ID:</label>
                             <span id="tenant_id_update"></span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label>Status:</label>
                             <span id="active_update"></span>
                         </div>

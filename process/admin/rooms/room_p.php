@@ -7,6 +7,20 @@ include '../../conn.php';
 
 $method = $_POST['method'];
 
+function get_default_amount($conn)
+{
+	$data = array();
+	$query = "SELECT * FROM amounts";
+	$stmt = $conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+	$stmt->execute();
+	if ($stmt->rowCount() > 0) {
+		foreach ($stmt->fetchALL() as $row) {
+			$data[$row["AmountName"]] = $row["Amount"];
+		}
+	}
+	return $data;
+}
+
 function count_rooms($search_arr, $conn)
 {
 	$query = "SELECT count(ID) AS total FROM rooms WHERE 1=1";
@@ -122,6 +136,8 @@ if ($method == 'search_rooms') {
 			echo '" data-room_type="' . $row['RoomType'];
 			echo '" data-room_rent="' . $row['RoomRent'];
 			echo '" data-room_description="' . $row['RoomDescription'];
+			echo '" data-amount_per_kw_electric="' . $row['AmountPerKwElectric'];
+			echo '" data-amount_per_head_water="' . $row['AmountPerHeadWater'];
 			echo '" data-occupied="' . $row['Occupied'];
 			echo '" onclick="get_rooms_details(this)">';
 
@@ -146,6 +162,10 @@ if ($method == 'add_room') {
 	$room_description = trim($_POST['room_description']);
 	$room_rent = trim($_POST['room_rent']);
 
+	$amounts_arr = get_default_amount($conn);
+	$amount_per_kw_electric = $amounts_arr['AmountPerKwElectric'];
+	$amount_per_head_water = $amounts_arr['AmountPerHeadWater'];
+
 	$check = "SELECT RoomID FROM rooms ORDER BY ID DESC LIMIT 1";
 	$stmt = $conn->prepare($check);
 	$stmt->execute();
@@ -164,9 +184,9 @@ if ($method == 'add_room') {
 	}
 
 	$stmt = NULL;
-	$query = "INSERT INTO rooms (`RoomID`, `RoomType`, `RoomDescription`, `RoomRent`) VALUES (?,?,?,?)";
+	$query = "INSERT INTO rooms (`RoomID`, `RoomType`, `RoomDescription`, `RoomRent`, `AmountPerKwElectric`, `AmountPerHeadWater`) VALUES (?,?,?,?,?,?)";
 	$stmt = $conn->prepare($query);
-	$params = array($room_id, $room_type, $room_description, $room_rent);
+	$params = array($room_id, $room_type, $room_description, $room_rent, $amount_per_kw_electric, $amount_per_head_water);
 	if ($stmt->execute($params)) {
 		echo 'success';
 	} else {
@@ -179,10 +199,12 @@ if ($method == 'update_room') {
 	$room_type = trim($_POST['room_type']);
 	$room_description = trim($_POST['room_description']);
 	$room_rent = trim($_POST['room_rent']);
+	$amount_per_kw_electric = trim($_POST['amount_per_kw_electric']);
+	$amount_per_head_water = trim($_POST['amount_per_head_water']);
 
-	$query = "UPDATE rooms SET RoomType = ?, RoomDescription = ?, RoomRent = ? WHERE ID = ?";
+	$query = "UPDATE rooms SET RoomType = ?, RoomDescription = ?, RoomRent = ?, AmountPerKwElectric = ?, AmountPerHeadWater = ? WHERE ID = ?";
 	$stmt = $conn->prepare($query);
-	$params = array($room_type, $room_description, $room_rent, $id);
+	$params = array($room_type, $room_description, $room_rent, $amount_per_kw_electric, $amount_per_head_water, $id);
 	if ($stmt->execute($params)) {
 		echo 'success';
 	} else {

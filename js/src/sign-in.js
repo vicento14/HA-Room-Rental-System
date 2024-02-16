@@ -1,7 +1,7 @@
 const sign_in = () => {
 
-  let username = $('#username').val();
-  let password = $('#password').val();
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
 
   $.ajax({
     url: 'process/sign_in.php',
@@ -14,8 +14,8 @@ const sign_in = () => {
     success: response => {
       if (response == 'success') {
         window.location.href = "admin/dashboard.php";
-        $("#username").val('');
-        $("#password").val('');
+        document.getElementById("username").value = '';
+        document.getElementById("password").value = '';
       } else if (response == 'failed') {
         swal('Account Information', `Sign In Failed. Maybe an incorrect credential or account not found`, 'info');
       } else {
