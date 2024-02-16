@@ -35,6 +35,16 @@
                             <input type="number" id="room_rent_update" class="form-control" step="0.01" autocomplete="off" required>
                         </div>
                     </div>
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <label>Amount Per Kw Electric:</label><label style="color: red;">*</label>
+                            <input type="number" id="amount_per_kw_electric_update" class="form-control" step="0.01" autocomplete="off" required>
+                        </div>
+                        <div class="col-6">
+                            <label>Amount Per Head Water:</label><label style="color: red;">*</label>
+                            <input type="number" id="amount_per_head_water_update" class="form-control" step="0.01" autocomplete="off" required>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <label>Room Description</label><label style="color: red;">*</label>

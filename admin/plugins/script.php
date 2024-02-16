@@ -12,7 +12,7 @@
     <script async src="../js/sb-admin-2.min.js"></script>
 
     <!-- HARRS Script -->
-    <script defer src="../js/sign-out.js"></script>
+    <script defer src="../js/src/sign-out.js"></script>
     <?php if ($_SERVER['REQUEST_URI'] == "/harrs/admin/dashboard.php") {?>
     <!-- Page level plugins -->
     <script defer src="../vendor/chart.js/Chart.min.js"></script>
@@ -34,6 +34,13 @@
     <!-- Page level custom scripts -->
     <script async src="../js/demo/datatables-demo.js"></script>
     <?php } ?>
+
+    <noscript>
+        <br>
+        <span>We are facing <strong>Script</strong> issues. Kindly enable <strong>JavaScript</strong>!!!</span>
+        <br>
+        <span>Call IT Personnel Immediately!!! They will fix it right away.</span>
+    </noscript>
 
 </body>
 </html>

@@ -58,7 +58,7 @@ const count_tenants = () => {
         success: function (response) {
             sessionStorage.setItem('count_rows', response);
             var count = `Total: ${response}`;
-            $('#tenants_table_info').html(count);
+            document.getElementById("tenants_table_info").innerHTML = count;
 
             if (response > 0) {
                 tenants_last_page();
@@ -261,15 +261,15 @@ const add_tenant = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#last_name').val('');
-                $('#first_name').val('');
-                $('#middle_name').val('');
-                $('#address').val('');
-                $('#num_of_tenants').val('');
-                $('#contact_number').val('');
-                $('#occupation').val('');
-                $('#company').val('');
-                $('#work_address').val('');
+                document.getElementById("last_name").value = '';
+                document.getElementById("first_name").value = '';
+                document.getElementById("middle_name").value = '';
+                document.getElementById("address").value = '';
+                document.getElementById("num_of_tenants").value = '';
+                document.getElementById("contact_number").value = '';
+                document.getElementById("occupation").value = '';
+                document.getElementById("company").value = '';
+                document.getElementById("work_address").value = '';
                 search_tenants(1);
                 $('#new_tenant').modal('hide');
             } else {
@@ -406,15 +406,15 @@ const update_tenant = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#last_name_update').val('');
-                $('#first_name_update').val('');
-                $('#middle_name_update').val('');
-                $('#address_update').val('');
-                $('#num_of_tenants_update').val('');
-                $('#contact_number_update').val('');
-                $('#occupation_update').val('');
-                $('#company_update').val('');
-                $('#work_address_update').val('');
+                document.getElementById("last_name_update").value = '';
+                document.getElementById("first_name_update").value = '';
+                document.getElementById("middle_name_update").value = '';
+                document.getElementById("address_update").value = '';
+                document.getElementById("num_of_tenants_update").value = '';
+                document.getElementById("contact_number_update").value = '';
+                document.getElementById("occupation_update").value = '';
+                document.getElementById("company_update").value = '';
+                document.getElementById("work_address_update").value = '';
                 search_tenants(1);
                 $('#update_tenant').modal('hide');
             } else {
@@ -441,15 +441,15 @@ const delete_tenant = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#last_name_update').val('');
-                $('#first_name_update').val('');
-                $('#middle_name_update').val('');
-                $('#address_update').val('');
-                $('#num_of_tenants_update').val('');
-                $('#contact_number_update').val('');
-                $('#occupation_update').val('');
-                $('#company_update').val('');
-                $('#work_address_update').val('');
+                document.getElementById("last_name_update").value = '';
+                document.getElementById("first_name_update").value = '';
+                document.getElementById("middle_name_update").value = '';
+                document.getElementById("address_update").value = '';
+                document.getElementById("num_of_tenants_update").value = '';
+                document.getElementById("contact_number_update").value = '';
+                document.getElementById("occupation_update").value = '';
+                document.getElementById("company_update").value = '';
+                document.getElementById("work_address_update").value = '';
                 search_tenants(1);
                 $('#update_tenant').modal('hide');
             } else {

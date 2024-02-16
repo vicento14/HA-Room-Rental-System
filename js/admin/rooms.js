@@ -58,7 +58,7 @@ const count_rooms = () => {
         success: function (response) {
             sessionStorage.setItem('count_rows', response);
             var count = `Total: ${response}`;
-            $('#rooms_table_info').html(count);
+            document.getElementById("rooms_table_info").innerHTML = count;
 
             if (response > 0) {
                 rooms_last_page();
@@ -232,9 +232,9 @@ const add_room = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#room_type').val('');
-                $('#room_rent').val('');
-                $('#room_description').val('');
+                document.getElementById("room_type").value = '';
+                document.getElementById("room_rent").value = '';
+                document.getElementById("room_description").value = '';
                 search_rooms(1);
                 $('#new_room').modal('hide');
             } else {
@@ -249,6 +249,8 @@ const get_rooms_details = el => {
     var room_id = el.dataset.room_id;
     var room_type = el.dataset.room_type;
     var room_rent = el.dataset.room_rent;
+    var amount_per_kw_electric = el.dataset.amount_per_kw_electric;
+    var amount_per_head_water = el.dataset.amount_per_head_water;
     var room_description = el.dataset.room_description;
     var occupied = el.dataset.occupied;
 
@@ -256,6 +258,8 @@ const get_rooms_details = el => {
     document.getElementById("room_id_update").innerHTML = room_id;
     document.getElementById("room_type_update").value = room_type;
     document.getElementById("room_rent_update").value = room_rent;
+    document.getElementById("amount_per_kw_electric_update").value = amount_per_kw_electric;
+    document.getElementById("amount_per_head_water_update").value = amount_per_head_water;
     document.getElementById("room_description_update").value = room_description;
 
     if (occupied == '1') {
@@ -309,6 +313,8 @@ const update_room = () => {
     var id = document.getElementById('id_room_update').value;
     var room_type = document.getElementById('room_type_update').value;
     var room_rent = document.getElementById('room_rent_update').value;
+    var amount_per_kw_electric = document.getElementById('amount_per_kw_electric_update').value;
+    var amount_per_head_water = document.getElementById('amount_per_head_water_update').value;
     var room_description = document.getElementById('room_description_update').value;
 
     $.ajax({
@@ -320,6 +326,8 @@ const update_room = () => {
             id: id,
             room_type: room_type,
             room_rent: room_rent,
+            amount_per_kw_electric: amount_per_kw_electric,
+            amount_per_head_water: amount_per_head_water,
             room_description: room_description
         }, success: function (response) {
             if (response == 'success') {
@@ -329,9 +337,11 @@ const update_room = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#room_type_update').val('');
-                $('#room_rent_update').val('');
-                $('#room_description_update').val('');
+                document.getElementById("room_type_update").value = '';
+                document.getElementById("room_rent_update").value = '';
+                document.getElementById("amount_per_kw_electric_update").value = '';
+                document.getElementById("amount_per_head_water_update").value = '';
+                document.getElementById("room_description_update").value = '';
                 search_rooms(1);
                 $('#update_room').modal('hide');
             } else {
@@ -358,9 +368,11 @@ const delete_room = () => {
                     icon: "info",
                     timer: 1000,
                 });
-                $('#room_type_update').val('');
-                $('#room_rent_update').val('');
-                $('#room_description_update').val('');
+                document.getElementById("room_type_update").value = '';
+                document.getElementById("room_rent_update").value = '';
+                document.getElementById("amount_per_kw_electric_update").value = '';
+                document.getElementById("amount_per_head_water_update").value = '';
+                document.getElementById("room_description_update").value = '';
                 search_rooms(1);
                 $('#update_room').modal('hide');
             } else {
